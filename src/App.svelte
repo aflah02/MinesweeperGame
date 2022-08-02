@@ -1,9 +1,13 @@
 <script>
 	let gameOver=false;
+	let won=false;
+	let lost=false;
 	let grid = [];
 	let row = 10;
 	let col = 10;
 	let bombs = 10;
+	let totalChooseable = row*col-bombs;
+	let revealedSoFar = 0;
 	for (let i=0;i<row;i++){
 		grid[i] = new Array(col);
 		for (let j=0;j<col;j++){
@@ -23,6 +27,7 @@
 		}
 		grid[x][y].bomb = true;
 	}
+	console.log(grid);
 	function countDistanct(i,j){
 		if (grid[i][j].bomb){
 			grid[i][j].distance=-1;
@@ -49,10 +54,18 @@
 	}
 	function revealBox(i,j){
 		grid[i][j].revealed = true;
+		revealedSoFar++;
+		if (revealedSoFar==totalChooseable){
+			gameOver = true;
+			won = true;
+			var audio = new Audio('assets/youWin.m4a');
+			audio.play();
+		}
 		if (grid[i][j].bomb){
 			var audio = new Audio('assets/gameOver.m4a');
 			audio.play();
 			gameOver = true;
+			lost = true;
 			for (let i=0;i<row;i++){
 				for (let j=0;j<col;j++){
 					if (grid[i][j].bomb){
@@ -114,9 +127,13 @@
 	}
 </style>
 
-{#if gameOver}
+{#if gameOver && lost}
 	<h1 style="text-align: center; font-size: 40px; font-weight: bold; margin-top: 0px">
 		Game Over
+	</h1>
+{:else if gameOver && won}
+	<h1 style="text-align: center; font-size: 40px; font-weight: bold; margin-top: 0px">
+		You Won
 	</h1>
 {:else}
 	<h1 style="text-align: center; font-size: 40px; font-weight: bold; margin-top: 0px">
