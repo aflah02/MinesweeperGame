@@ -58,8 +58,10 @@
 		if (revealedSoFar==totalChooseable){
 			gameOver = true;
 			won = true;
-			var audio = new Audio('assets/youWin.m4a');
-			audio.play();
+			if (!lost){
+				var audio = new Audio('assets/youWin.m4a');
+				audio.play();
+			}
 		}
 		if (grid[i][j].bomb){
 			var audio = new Audio('assets/gameOver.m4a');
