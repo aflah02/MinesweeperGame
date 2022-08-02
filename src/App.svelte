@@ -64,10 +64,12 @@
 			}
 		}
 		if (grid[i][j].bomb){
-			var audio = new Audio('assets/gameOver.m4a');
-			audio.play();
-			gameOver = true;
-			lost = true;
+			if (!won){
+				var audio = new Audio('assets/gameOver.m4a');
+				audio.play();
+				gameOver = true;
+				lost = true;
+			}
 			for (let i=0;i<row;i++){
 				for (let j=0;j<col;j++){
 					if (grid[i][j].bomb){
