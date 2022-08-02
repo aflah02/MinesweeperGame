@@ -115,8 +115,12 @@
 </style>
 
 {#if gameOver}
-	<h1 style="text-align: center; font-size: 50px; font-weight: bold;">
+	<h1 style="text-align: center; font-size: 40px; font-weight: bold; margin-top: 0px">
 		Game Over
+	</h1>
+{:else}
+	<h1 style="text-align: center; font-size: 40px; font-weight: bold; margin-top: 0px">
+		Minesweeper Game
 	</h1>
 {/if}
 <div class="game">
